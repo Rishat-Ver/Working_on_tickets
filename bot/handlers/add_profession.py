@@ -6,7 +6,7 @@ from aiogram.fsm.context import FSMContext
 from sqlalchemy import select
 
 from database.db import Profession, SessionLocal
-from filters.permissions import check_proffesion
+from filters.checkers import check_proffesion
 from handlers.state import AddProfessionState
 
 

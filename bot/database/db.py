@@ -31,10 +31,10 @@ class Ticket(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     keys = Column(String, nullable=False)
-    link = Column(String, nullable=False)
+    link = Column(String, nullable=True)
     date = Column(DateTime, default=datetime.datetime.utcnow)
     hour = Column(Integer, nullable=False)
-    profession_id = Column(Integer, ForeignKey("professions.id"))
+    profession_id = Column(Integer, ForeignKey("professions.id"), nullable=False)
 
     profession = relationship("Profession", back_populates="tickets")
 

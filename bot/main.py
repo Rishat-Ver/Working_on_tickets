@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 import asyncio
 import os
-from handlers import start, add_profession
+from handlers import start, add_profession, add_task
 from database.db import init_db
 
 
@@ -16,6 +16,7 @@ dp = Dispatcher()
 
 start.register_handlers_start(dp)
 add_profession.register_handlers_add_profession(dp)
+add_task.register_handlers_add_task(dp)
 
 
 async def set_main_menu(bot: Bot):

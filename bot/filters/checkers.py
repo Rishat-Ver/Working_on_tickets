@@ -23,3 +23,14 @@ async def check_proffesion(message: Message):
         await message.reply("❌ Нет такой профессии. ❌")
         return False
     return True
+
+
+async def check_message_new_task(message: Message):
+    args = message.text.split('\n')
+    if len(args) not in [2, 3]:
+        await message.reply("❌ Нужно ввести задачу, часы, ссылку ❌")
+        return False
+    if not args[1].isdigit():
+        await message.reply("❌ Часы должны быть числом. ❌")
+        return False
+    return True
