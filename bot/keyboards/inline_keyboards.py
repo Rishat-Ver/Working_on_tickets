@@ -1,11 +1,19 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
-button_1 = InlineKeyboardButton(text='DA', callback_data='DA')
-button_2 = InlineKeyboardButton(text='DS', callback_data='DS')
-button_3 = InlineKeyboardButton(text='DE', callback_data='DE')
-button_4 = InlineKeyboardButton(text='DEV', callback_data='DEV')
+PROFESSIONS = ['DA', 'DS', 'DE', 'DEV']
 
-professions_keyboard =InlineKeyboardMarkup(
-    inline_keyboard=[[button_1, button_2, button_3, button_4]]
+professions_keyboard = InlineKeyboardMarkup(
+    inline_keyboard=[[]]
 )
+
+def generate_keybords_professions(new_prof):
+
+    PROFESSIONS.append(new_prof)
+
+    for i in range(len(PROFESSIONS)):
+        button = InlineKeyboardButton(text=PROFESSIONS[i], callback_data=PROFESSIONS[i])
+        if len(professions_keyboard.inline_keyboard[-1]) < 4:
+            professions_keyboard.inline_keyboard[-1].append(button)
+        else:
+            professions_keyboard.inline_keyboard.append([button])

@@ -11,11 +11,13 @@ from database.db import Ticket, Profession, SessionLocal
 from handlers.state import AddTicketState
 from keyboards.inline_keyboards import professions_keyboard
 from filters.checkers import check_message_new_task
+from keyboards.inline_keyboards import PROFESSIONS
 
 
 router_add_task = Router()
 
 load_dotenv()
+
 
 @router_add_task.message(lambda message: message.text == "New Task")
 async def cmd_add_ticket(message: Message, state: FSMContext):
@@ -42,7 +44,7 @@ async def process_keys_hour(message: Message, state: FSMContext):
     await message.reply("📋 Выбери профессию:", reply_markup=professions_keyboard)
 
 
-@router_add_task.callback_query(lambda c: c.data in os.getenv("PROFESSIONS").split(","))
+@router_add_task.callback_query(lambda c: c.data in PROFESSIONS)
 async def process_profession_selection(callback: CallbackQuery, state: FSMContext):
 
     profession_name = callback.data
