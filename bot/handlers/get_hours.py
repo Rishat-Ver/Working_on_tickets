@@ -15,7 +15,7 @@ from utils.mode_date import format_date
 router_get_hours = Router()
 
 
-@router_get_hours.message(lambda message: message.text == "Get Hour")
+@router_get_hours.message(lambda message: message.text == "Get Hours")
 async def callback_get_hours(message: Message, state: FSMContext):
 
     await state.set_state(GetHoursState.waiting_for_start_date)
@@ -45,7 +45,7 @@ async def process_start_date(message: Message, state: FSMContext):
     if not hours_by_profession:
         await message.reply(f"Нет часов за этот период")
     else:
-        response = f"🕓С {format_date(start_date)} по {format_date(today)}:🕓\n\n"
+        response = f"🕓\nС {format_date(start_date)} по {format_date(today)}:\n\n"
         all_hours = 0
         for profession, hours in hours_by_profession:
             response += f"{profession}: <b>{hours}</b> часов\n"

@@ -2,7 +2,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 
 button_1 = KeyboardButton(text="New Task")
-button_2 = KeyboardButton(text="Get Hour")
+button_2 = KeyboardButton(text="Get Hours")
 
 main_keyboard = ReplyKeyboardMarkup(
     keyboard=[
