@@ -7,7 +7,6 @@ from sqlalchemy import select
 from database.db import Profession, SessionLocal
 from filters.checkers import check_proffesion
 from handlers.state import AddProfessionState
-from keyboards.inline_keyboards import generate_keybords_professions
 
 
 router_add_profession = Router()
@@ -39,8 +38,6 @@ async def process_profession_name(message: Message, state: FSMContext):
         new_profession = Profession(name=profession_name)
         session.add(new_profession)
         await session.commit()
-
-    generate_keybords_professions(profession_name)
 
     await message.reply(f"✅ Профессия '{profession_name}' добавлена!")
     await state.clear()

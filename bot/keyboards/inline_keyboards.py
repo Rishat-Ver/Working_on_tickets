@@ -1,19 +1,18 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from sqlalchemy import select
+from database.db import SessionLocal, Profession
 
 
-PROFESSIONS = ['DA', 'DS', 'DE', 'DEV']
+async def get_professions_keyboard() -> InlineKeyboardMarkup:
 
-professions_keyboard = InlineKeyboardMarkup(
-    inline_keyboard=[[]]
-)
+    async with SessionLocal() as session:
+        result = await session.execute(select(Profession.name))
+        professions = [row[0] for row in result.fetchall()]
 
-def generate_keybords_professions(new_prof):
+    if not professions:
+        return None
 
-    PROFESSIONS.append(new_prof)
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=prof, callback_data=prof)] for prof in professions])
 
-    for i in range(len(PROFESSIONS)):
-        button = InlineKeyboardButton(text=PROFESSIONS[i], callback_data=PROFESSIONS[i])
-        if len(professions_keyboard.inline_keyboard[-1]) < 4:
-            professions_keyboard.inline_keyboard[-1].append(button)
-        else:
-            professions_keyboard.inline_keyboard.append([button])
+    return keyboard
