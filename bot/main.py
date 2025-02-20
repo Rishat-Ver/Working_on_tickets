@@ -6,13 +6,16 @@ import asyncio
 import os
 from handlers import start, add_profession, add_task, get_hours
 from database.db import init_db
+from middleware import AccessMiddleware
 
 
 load_dotenv()
 
-
 bot = Bot(token=os.getenv('BOT_TOKEN'))
 dp = Dispatcher()
+
+dp.message.middleware(AccessMiddleware())
+dp.callback_query.middleware(AccessMiddleware())
 
 start.register_handlers_start(dp)
 add_profession.register_handlers_add_profession(dp)
